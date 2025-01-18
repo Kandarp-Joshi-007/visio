@@ -1,0 +1,50 @@
+import numpy as np
+import librosa
+import librosa.display
+import matplotlib.pyplot as plt
+from sklearn.ensemble import IsolationForest
+import firebase_admin
+from firebase_admin import credentials, storage
+
+def initialize_firebase():
+    cred = credentials.Certificate('path/to/your/serviceAccountKey.json')
+    firebase_admin.initialize_app(cred, {
+        'storageBucket': 'your-project-id.appspot.com'
+    })
+
+def load_audio_from_firebase(file_url):
+    bucket = storage.bucket()
+    blob = bucket.blob(file_url)
+    temp_audio_file_path = "temp_audio_file.wav"
+    blob.download_to_filename(temp_audio_file_path)
+    y, sr = librosa.load(temp_audio_file_path, sr=None)
+    return y, sr
+
+def audio_anomaly_detection(audio_array, sr, threshold_zscore=2.0):
+    z_scores = (audio_array - np.mean(audio_array)) / np.std(audio_array)
+    anomalies = np.abs(z_scores) > threshold_zscore
+    threshold = 1e8
+    plt.figure(figsize=(12, 4))
+    plt.plot(np.arange(len(audio_array)) / sr, audio_array, label='Audio Signal')
+    plt.plot(np.arange(len(anomalies)) / sr, anomalies * np.max(audio_array), label='Anomalies', color='red')
+    plt.xlabel('Time (seconds)')
+    plt.ylabel('Amplitude')
+    plt.title('Audio Anomaly Detection (Z-score)')
+    plt.legend()
+    plt.show()
+    if np.sum(audio_array**2) > threshold:
+        print("Anomaly detected!")
+    else:
+        print("No anomaly detected.")
+
+if __name__ == "__main__":
+    initialize_firebase()
+
+    # Specify the Firebase URL for the audio file
+    audio_file_url = "your/firebase/audio/file/url"
+
+    # Load audio file from Firebase URL
+    y, sr = load_audio_from_firebase(audio_file_url)
+
+    # Perform audio anomaly detection
+    audio_anomaly_detection(y, sr)
