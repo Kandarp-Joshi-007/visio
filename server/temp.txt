@@ -1,0 +1,17 @@
+{
+  "name": "uploads/test_spectogram.txt",
+  "bucket": "xenesis-ff41b.appspot.com",
+  "generation": "1709749897122444",
+  "metageneration": "1",
+  "contentType": "application/octet-stream",
+  "timeCreated": "2024-03-06T18:31:37.261Z",
+  "updated": "2024-03-06T18:31:37.261Z",
+  "storageClass": "STANDARD",
+  "size": "2863",
+  "md5Hash": "UQgrUDPlkuGAMutDhzuWjw==",
+  "contentEncoding": "identity",
+  "contentDisposition": "inline; filename*=utf-8''test_spectogram.txt",
+  "crc32c": "mUsQgA==",
+  "etag": "CIyll9qi4IQDEAE=",
+  "downloadTokens": "19ba8494-6fca-4d36-ad6a-740340767241"
+}
