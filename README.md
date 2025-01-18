@@ -32,12 +32,5 @@ The development of VisioBrain involved a combination of modern technologies to e
 
 ---
 
-## Installation and Setup
-Follow these steps to set up VisioBrain locally:
-
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/your-username/visiobrain.git
-   cd visiobrain
 # visio
 VisioBrain: One-Click Data Analysis Platform
